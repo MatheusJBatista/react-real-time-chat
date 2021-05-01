@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@environment/*": ["environment/*"],
+      "@constants/*": ["constants/*"],
+      "@views/*": ["views/*"],
+      "@redux/*": ["redux/*"],
+      "@models/*": ["models/*"],
+      "@utilities/*": ["utilities/*"],
+      "@selectors/*": ["selectors/*"],
+      "@providers/*": ["providers/*"],
+      "@customHooks/*": ["custom-hooks/*"],
+      "@api/*": ["api/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
