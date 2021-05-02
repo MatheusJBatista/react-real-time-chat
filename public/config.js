@@ -1,3 +1,4 @@
 const externalConfig = {
-  myNameIs: '__{myNameIs}__',
+  socketURL: '__{socketURL}__',
+  baseURL: '__{baseURL}__',
 }

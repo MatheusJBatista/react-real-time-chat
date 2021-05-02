@@ -1,0 +1,46 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: yarn install
+        run: yarn install
+
+      - uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["public/config.js"]'
+          tokenPrefix: '__{'
+          tokenSuffix: '}__'
+        env:
+          socketURL: ${{ secrets.REAL_TIME_API_URL }}
+          baseURL: ${{ secrets.REAL_TIME_API_URL }}
+
+      - name: clean aws s3 bucket
+        run: aws s3 rm s3://${{ secrets.AWS_S3_NAME }} --recursive
+
+      - name: yarn build
+        run: yarn build
+
+      - name: deploy
+        run: aws s3 sync build/ s3://${{ secrets.AWS_S3_NAME }} --acl public-read
