@@ -1,4 +1,6 @@
 const externalConfig = {
   socketURL: '__{socketURL}__',
-  baseURL: '__{baseURL}__',
+  chatApi: {
+    baseURL: '__{baseURL}__',
+  },
 }
