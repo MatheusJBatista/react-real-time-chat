@@ -11,6 +11,7 @@ const UserContext = createContext('UserContext')
 const UserProvider = ({ children }) => {
   const dispatch = useDispatch()
   const userId = localStorage.getItem('userId')
+  console.log('userId', userId)
 
   const hasUserInState = useSelector(UserSelectors.hasUser)
 
@@ -18,9 +19,7 @@ const UserProvider = ({ children }) => {
   if (!hasUserInState) {
     dispatch(getUserById(userId))
     dispatch(push(RouteEnum.SignIn))
-  } else {
-    dispatch(push(RouteEnum.Home))
-  }
+  } else dispatch(push(RouteEnum.Home))
 
   return <UserContext.Provider>{children}</UserContext.Provider>
 }

@@ -8,7 +8,7 @@ const initialState = {
 
 const userReducer = baseReducer(initialState, {
   [Actions.REQUEST_GET_USER_FINISHED](state, { payload }) {
-    localStorage.setItem('userId', payload.id)
+    localStorage.setItem('userId', payload._id)
     return produce(state, draftState => {
       draftState.user = payload
     })

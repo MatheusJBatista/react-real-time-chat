@@ -32,7 +32,7 @@ const RoomMessageActions = (socket, romMessageEffects) => {
 
   const sendMessage = message => {
     return async (dispatch, getState) => {
-      const userId = user(getState()).id
+      const userId = user(getState())._id
       const userName = user(getState()).name
       const room = getState().socket.roomMessage.room
       const messagePayload = { room, userId, message, userName }
